@@ -1,29 +1,23 @@
 const express = require('express')
 require('dotenv').config()
-const session = require('express-session')
 const bcrypt = require('bcrypt')
 const app = express()
 const path = require('path')
 // // Database Configuration
-// const mongoose = require('./config/db')
+const mongoose = require('./config/db')
 
 // Set the Port Configuration
 const port = process.env.PORT ? process.env.PORT : '3000'
 
 // Require Middleware
 const methodOverride = require('method-override')
-// const morgan = require('morgan')
+// const postRouter = require("./routes/postRouter")
+
+const morgan = require('morgan')
 // const passUserTOView = require('./middleware/pass-user-to-view')
 // const User = require('./models/user')
 
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true
-  })
-)
 
 app.use('/uploads', express.static('public/uploads'))
 
@@ -32,21 +26,23 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // app.use(passUserTOView)
 app.use(methodOverride('_method'))
-// app.use(morgan('dev'))
+app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
+// app.use("/posts", postRouter)
+
+
+
 
 // Sesstion Configurations
-app.get('/', async (req, res) => {
-  res.render('index.ejs')
-})
+// app.get('/', async (req, res) => {
+//   res.render('index.ejs')
+// })
 
 // Require Routes
-// const authRouter = require('./routes/auth')
-// const movieRouter = require('./routes/moiveRoute')
+const authRouter = require('./routes/auth')
 
 // //Use Routes
-// app.use('/auth', authRouter)
 
-// app.use('/movies', movieRouter)
+app.use('/auth', authRouter)
 
 app.listen(port)
