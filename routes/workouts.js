@@ -22,12 +22,12 @@ router.delete('/:id', middleware.stripToken, middleware.verifyToken, workoutCont
 // Exercises Routes
 
 // Create Exercises
-router.post('/:id/exercises', middleware.stripToken, middleware.verifyToken)
+router.post('/:id/exercises', middleware.stripToken, middleware.verifyToken, workoutController.createExercise)
 
 // Update Exercises 
-router.post('/:id/exercises/:exerciseId', middleware.stripToken, middleware.verifyToken)
+router.put('/:id/exercises/:exerciseId', middleware.stripToken, middleware.verifyToken, workoutController.updateExercise)
 
 // Delete Exercises
-router.delete('/:id/exercises/:exerciseId', middleware.stripToken, middleware.verifyToken)
+router.delete('/:id/exercises/:exerciseId', middleware.stripToken, middleware.verifyToken, workoutController.deleteExercise)
 
 module.exports = router
