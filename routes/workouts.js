@@ -1,38 +1,33 @@
 const express = require('express') 
 const router = express.Router();
 const workoutController = require('../controllers/workoutController')
-
-
+const middleware = require('../middleware/index')
 
 //create method route
-router.post('/createWorkout', workoutController.createWorkout)
-
-// READ METHOD GET ALL WORKOUTS ROUTE
-router.get('/getWorkouts',workoutController.getWorkouts)
-
-// GET METHOD GET ONE WORKOUT ROTUE
-router.get('/getWorkout/:id',workoutController.getWorkout)
-
+router.post('/', middleware.stripToken, middleware.verifyToken, workoutController.createWorkout)
 
 // READ METHOD FOR ALL
-router.get('/getWorkouts', workoutController.getWorkouts)
-
-
-
-
+router.get('/', middleware.stripToken, middleware.verifyToken, workoutController.getWorkouts)
 
 // READ METHOD onlyone
-router.get('/getWorkout/:id', workoutController.getWorkout)
-
-
-
+router.get('/:id', middleware.stripToken, middleware.verifyToken, workoutController.getWorkout)
 
 // UPDATE METHOD ROUTE
-
-router.put('/updateWorkout/:id',workoutController.updateWorkout)
+router.put('/:id', middleware.stripToken, middleware.verifyToken, workoutController.updateWorkout)
 
 // DELETE METHOD ROUTE 
-router.delete('/deleteWorkout/:id',workoutController.deleteWorkout)
+router.delete('/:id', middleware.stripToken, middleware.verifyToken, workoutController.deleteWorkout)
 
+
+// Exercises Routes
+
+// Create Exercises
+router.post('/:id/exercises', middleware.stripToken, middleware.verifyToken)
+
+// Update Exercises 
+router.post('/:id/exercises/:exerciseId', middleware.stripToken, middleware.verifyToken)
+
+// Delete Exercises
+router.delete('/:id/exercises/:exerciseId', middleware.stripToken, middleware.verifyToken)
 
 module.exports = router

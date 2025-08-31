@@ -52,7 +52,7 @@ const verifyToken = (req, res, next) => {
     let payload = jwt.verify(token, APP_SECRET)
     // Verifies the token is legit
     if (payload) {
-      res.locals.payload = payload // Passes the decoded payload to the next function
+      res.locals.user = payload // Passes the decoded payload to the next function
       // Calls the next function if the token is valid
       return next()
     }
