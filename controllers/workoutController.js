@@ -27,35 +27,28 @@ const Workout = await Workout.create({
 
 
 // get workouts 
-// const getWorkouts
+const getWorkouts = async (req, res)=> {
+    try {
+        const workouts = await Workout.find({user:req.userId}).sort({createdAt:-1})
+        res.status(200).json(workouts)
+    } catch (error) {
+        res.status(500).json({status:'error' ,msg:'An unexpected error occurred '})
+    }
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// get workout
+const getWorkout = async (req, res) => {
+    try {
+        const workout = await Workout.findById(req.params.id)
+        if (!workout){
+            return res.status(400).json({msg:'workout not found'})
+        }
+        res.status(200).json(workout)
+    } catch (error) {
+        res.status(500).json({ status: 'error', msg: error.message })
+}
+}
 
 
 
@@ -105,7 +98,8 @@ const deleteWorkout = async (req, res)=>{
 
 module.exports = {
     createWorkout,
-
+    getWorkouts,
+    getWorkout,
     updateWorkout,
     deleteWorkout,
 
