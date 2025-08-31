@@ -1,6 +1,6 @@
 const  User  = require('../models/User')
 
-const middleware = require('../middleware')
+const middleware = require('./middleware')
 
 //Register
 

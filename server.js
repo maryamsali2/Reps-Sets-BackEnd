@@ -40,9 +40,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Require Routes
 const authRouter = require('./routes/auth')
+const workoutsRoutes = require('./routes/workoutRoutes')
 
 // //Use Routes
 
 app.use('/auth', authRouter)
+app.use('api/workouts',workoutsRoutes)
 
 app.listen(port)
