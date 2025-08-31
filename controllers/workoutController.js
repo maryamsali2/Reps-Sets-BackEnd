@@ -9,15 +9,17 @@ const createWorkout  =  async (req, res)=>{
         if (!name || !day  ||  !description){
             return res.status(400).json({status:'error' , msg:'Plese  make sure all fields are are filled in. '})
         } 
+
         //AFTER PASSING THE VALLIDATION 
-const Workout = await Workout.create({
+const workout = await Workout.create({
     name,
     day,
     description,
-    user: req.userId
+    user: "68b007113d34e73b635da35b"
 })
         res.status(200).json({msg:'All data was recevied successfully'})
     } catch (error) {
+        console.log(error)
         res.status(500).json({status:'error' ,msg:'An unexpected error occurred '})
         
     }

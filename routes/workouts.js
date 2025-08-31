@@ -1,3 +1,4 @@
+const express = require('express') 
 const router = express.Router();
 const workoutController = require('../controllers/workoutController')
 
@@ -5,6 +6,19 @@ const workoutController = require('../controllers/workoutController')
 
 //create method route
 router.post('/createWorkout', workoutController.createWorkout)
+
+
+
+
+// READ METHOD FOR ALL
+router.get('/getWorkouts', workoutController.getWorkouts)
+
+
+
+
+
+// READ METHOD onlyone
+router.get('/getWorkout/:id', workoutController.getWorkout)
 
 
 

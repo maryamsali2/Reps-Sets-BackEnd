@@ -1,7 +1,10 @@
 
+const express = require('express')
 const router = express.Router();
+const bcrypt = require('bcrypt');
+
 const authController = require("../controllers/authController");
-const middleware = require("./middleware/index")
+const middleware = require("../middleware")
 
 router.post('/login', authController.Login)
 router.post('/register', authController.Register)

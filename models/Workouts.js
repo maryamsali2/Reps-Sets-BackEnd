@@ -1,3 +1,5 @@
+const mongoose =  require ('mongoose');
+
 const WorkoutsSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -29,3 +31,6 @@ const WorkoutsSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+const Workout = mongoose.model("Workout", WorkoutsSchema);
+module.exports = Workout;
