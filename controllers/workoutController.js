@@ -120,6 +120,43 @@ const createExercise = async (req ,res ) => {
 }
 
 
+// Update exercise
+const updateExercise = async (req, res) => {
+    try {
+        const {id ,exerciseId} = req.params
+        const {name, weight, SetsAndReps} = req.body
+        
+        const workout = await Workout.findById(id);
+        if(!workout){
+            return res.status(404).json({msg:'workout not found'})
+        }
+        // searching for the exercise in the workouts
+        const exercise = workout.exercises.id(exerciseId)
+        if(!exercise){
+             return res.status(404).json({msg:'exercise not found'})
+        }
+        if(name){
+            exercise.name = name
+        }
+        if(weight){
+            exercise.weight = weight
+        }
+        if(SetsAndReps){
+            exercise.SetsAndReps = SetsAndReps
+        }
+        await workout.save()
+         res.status(200).json(exercise)
+
+
+    } catch (error) {
+            res.status(500).json({ msg: error.message });
+
+        
+    }
+}
+
+
+
 
 
 module.exports = {
@@ -130,4 +167,5 @@ module.exports = {
     deleteWorkout,
     // EXERCICES
     createExercise,
+    updateExercise,
 }
