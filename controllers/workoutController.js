@@ -23,8 +23,38 @@ const Workout = await Workout.create({
     }
 }
 
-
 // READ METHOD 
+
+
+// get workouts 
+// const getWorkouts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -55,7 +85,19 @@ const updateWorkout = async(req, res)=> {
 
 
 // DELETE METHOD
-
+const deleteWorkout = async (req, res)=>{
+    try {
+        const workout = await Workout.findById(req.params.id)
+        if(!workout){
+            return res.status(404).json({msg:'Workout not found'})
+        }
+        const deleted = await Workout.findByIdAndDelete(req.params.id)
+        res.status(200).json({msg:'Workout deleted successfully'})
+        
+    } catch (error) {
+        res.status(500).json({status:'error',msg:'not found'})
+    }
+}
 
 
 
@@ -63,6 +105,8 @@ const updateWorkout = async(req, res)=> {
 
 module.exports = {
     createWorkout,
+
     updateWorkout,
+    deleteWorkout,
 
 }

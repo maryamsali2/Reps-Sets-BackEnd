@@ -13,5 +13,8 @@ router.post('/createWorkout', workoutController.createWorkout)
 
 router.put('/updateWorkout/:id',workoutController.updateWorkout)
 
+// DELETE METHOD ROUTE 
+router.delete('/deleteWorkout/:id',workoutController.deleteWorkout)
+
 
 module.exports = router
