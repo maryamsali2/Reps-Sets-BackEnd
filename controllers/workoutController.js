@@ -100,6 +100,24 @@ const deleteWorkout = async (req, res)=>{
     }
 }
 
+// EXERCISES CONTROLLERS
+
+
+// CREATE AN EXERCISE
+const createExercise = async (req ,res ) => {
+    try {
+        const workout = await Workout.findById(req.params.id)
+        if(!workout){
+             return res.status(404).json({msg:'workout not found'})
+        }
+        const {name , weight,setsAndReps } = req.body
+        workout.exercises.push({name, weight, setsAndReps})
+        await workout.save()
+        res.status(201).json(workout)
+    } catch (error) {
+        res.status(500).json({ msg: error.message })
+    }
+}
 
 
 
@@ -110,5 +128,6 @@ module.exports = {
     getWorkout,
     updateWorkout,
     deleteWorkout,
-
+    // EXERCICES
+    createExercise,
 }
