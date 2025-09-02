@@ -13,7 +13,7 @@ const Register = async (req, res) => {
     
     let existingUser = await User.findOne({ username })
     if (existingUser) {
-      return res.status(400).send("A user with that email has already been registered!")
+      return res.status(400).send("A user with that username has already been registered!")
     } else {
       let user = await User.create({ username, password: passwordDigest })
       user = { username: user.username, _id: user._id, createdAt: user.createdAt, updatedAt: user.updatedAt, __v: user.__v }

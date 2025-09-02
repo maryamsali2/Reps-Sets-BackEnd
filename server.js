@@ -3,6 +3,7 @@ require('dotenv').config()
 const bcrypt = require('bcrypt')
 const app = express()
 const path = require('path')
+const cors = require('cors')
 // // Database Configuration
 const mongoose = require('./config/db')
 
@@ -19,14 +20,15 @@ const morgan = require('morgan')
 
 
 
-app.use('/uploads', express.static('public/uploads'))
 
 // Use Middleware
+app.use(morgan('dev'))
+app.use(cors())
+app.use('/uploads', express.static('public/uploads'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // app.use(passUserTOView)
 app.use(methodOverride('_method'))
-app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
 // app.use("/posts", postRouter)
 
