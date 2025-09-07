@@ -5,18 +5,16 @@ const Workout = require('../models/Workouts')
 // CREATE METHOD
 const createWorkout  =  async (req, res)=>{
     try {
-        const {name, day, description} = req.body
+        const {name, day, description   } = req.body
+
+        req.body.user = res.locals.user.id
         if (!name || !day  ||  !description){
             return res.status(400).json({status:'error' , msg:'Plese  make sure all fields are are filled in. '})
         } 
 
         //AFTER PASSING THE VALLIDATION 
-        const workout = await Workout.create({
-            name,
-            day,
-            description,
-            user: res.locals.user.id
-        })
+        const workout = await Workout.create(
+req.body)
         // res.status(200).json({msg:'All data was recevied successfully'})
         res.send(workout)
     } catch (error) {
@@ -165,6 +163,7 @@ const updateExercise = async (req, res) => {
 // DELETE EXERCISE 
 const deleteExercise = async (req, res) =>{
     try {
+        console.log("here")
         const {id ,exerciseId} = req.params
         const workout = await Workout.findById(id);
         if(!workout){
@@ -181,9 +180,10 @@ const deleteExercise = async (req, res) =>{
         exercise.deleteOne()
         // saving after the removes
         await workout.save()
-        res.status(200).json({ msg: 'Exercise deleted successfully' })
+        
+        return res.status(200).json({ msg: 'Exercise deleted successfully' })
         } catch (error) {
-        res.status(500).json({ msg: error.message })
+        return res.status(500).json({ msg: error.message })
     }
 }
 
